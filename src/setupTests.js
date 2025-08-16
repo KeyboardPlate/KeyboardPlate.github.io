@@ -1,0 +1,5 @@
+// jest-dom 为DOM节点断言添加自定义jest匹配器。
+// 允许你执行如下操作：
+// expect(element).toHaveTextContent(/react/i)
+// 了解更多：https://github.com/testing-library/jest-dom
+import '@testing-library/jest-dom';
