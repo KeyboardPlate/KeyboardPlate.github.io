@@ -5,7 +5,7 @@
 ### 1. 项目配置
 项目已经配置完成，`homepage` 设置为：
 ```json
-"homepage": "https://KeyboardPlate.github.io"
+"homepage": "https://keyboardplate.github.io"
 ```
 
 ### 2. 部署方式
@@ -26,14 +26,13 @@ npm run deploy
 ### 3. GitHub Pages 设置
 1. 访问仓库：https://github.com/KeyboardPlate/KeyboardPlate.github.io
 2. 进入 Settings > Pages
-3. 在 Source 部分选择 "Deploy from a branch"
-4. 选择 `gh-pages` 分支和 `/ (root)` 文件夹
-5. 点击 Save
+3. 在 Source 部分选择 "GitHub Actions"
+4. 这将使用 `.github/workflows/deploy.yml` 工作流自动部署
 
 ## 部署状态
 
 ✅ **已成功部署**：网站已经部署并可以访问
-✅ **访问地址**：https://KeyboardPlate.github.io
+✅ **访问地址**：https://keyboardplate.github.io
 
 ## 更新网站
 
