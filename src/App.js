@@ -1,14 +1,14 @@
 // 导入React相关的钩子函数
 import { useState, useEffect } from "react"
 // 导入Bootstrap UI组件
-import { Button, Container, Card, Form, Row, Col, Image, Tab, Nav } from 'react-bootstrap'
+import { Button, Container, Card, Form, Row, Col, Tab, Nav } from 'react-bootstrap'
 // 导入自定义模块
 import { parseKle } from "./KLEParser"        // KLE数据解析器
 import { buildPlate } from "./PlateBuilder"   // 定位板构建器
 import Decimal from "decimal.js"              // 高精度数值计算库
 import makerjs from 'makerjs'                 // 几何图形生成库
 import fileDownload from 'js-file-download'   // 文件下载工具
-import { DataHelpPane, SwitchCutoutPane, OtherCutoutPane, AdvancedPane } from './HelpPanes'  // 帮助面板组件
+import { DataHelpPane, SwitchCutoutPane, OtherCutoutPane } from './HelpPanes'  // 帮助面板组件
 
 /**
  * 主应用组件 - 键盘定位板生成器
@@ -46,7 +46,7 @@ function App() {
   // 开槽相关参数状态
   const [acousticCutoutType, setAcousticCutoutType] = useState("none")          // 声学切割类型
   const [acousticRadius, setAcousticRadius] = useState(0.5)                     // 开槽圆角半径(mm)
-  const [acousticPattern, setAcousticPattern] = useState(true)                  // 是否启用声学切割花纹美化
+  const [acousticPattern] = useState(true)                  // 是否启用声学切割花纹美化
   const [slotWidth, setSlotWidth] = useState(1)                                 // 槽宽(mm)
   const [switchHousingWidth, setSwitchHousingWidth] = useState(1)               // 轴框宽度(mm)
   const [connectorWidth, setConnectorWidth] = useState(1.2)                     // 连接宽度(mm)
@@ -55,8 +55,8 @@ function App() {
   const [slotLineWidth, setSlotLineWidth] = useState(0.5)                       // 开槽花纹线宽(mm)
   const [slotSolderMaskExpansion, setSlotSolderMaskExpansion] = useState(0.051) // 开槽阻焊扩展(mm)
   const [slotPatternRadius, setSlotPatternRadius] = useState(0.25)              // 开槽花纹圆角(mm)
-  const [acousticLineWidth, setAcousticLineWidth] = useState(0.5)               // 声学切割线宽(mm)
-  const [acousticSolderMaskExpansion, setAcousticSolderMaskExpansion] = useState(0.051)  // 声学切割阻焊扩展(mm)
+  const [acousticLineWidth] = useState(0.5)               // 声学切割线宽(mm)
+  const [acousticSolderMaskExpansion] = useState(0.051)  // 声学切割阻焊扩展(mm)
 
   // 板框相关参数状态
   const [plateRadius, setPlateRadius] = useState(1)                            // 板框圆角半径(mm)
@@ -213,11 +213,10 @@ function App() {
   // 槽宽变化时的副作用：确保圆角半径不超过槽宽的一半
   useEffect(() => {
     // 当槽宽变化时，检查并调整圆角半径的值
-    const newDefaultRadius = slotWidth / 2  // 计算新的默认圆角半径
     if (acousticRadius > slotWidth) {
       setAcousticRadius(slotWidth)  // 如果当前圆角半径超过槽宽，则调整为槽宽值
     }
-  }, [slotWidth])  // 仅当槽宽改变时执行
+  }, [slotWidth, acousticRadius, setAcousticRadius])  // 仅当槽宽改变时执行
 
   /**
    * 下载文件的辅助函数

@@ -90,6 +90,11 @@ function createBasicMXSwitchModel(key, options) {
             startAngle = new Decimal(270).minus(shrinkAngle)
             endAngle = new Decimal(360).plus(shrinkAngle)
             break
+          default:
+            // 默认情况，不应该到达这里
+            startAngle = new Decimal(0)
+            endAngle = new Decimal(90)
+            break
         }
         // 创建大圆弧路径
         model.paths['bigCornerArc' + i] = new makerjs.paths.Arc(
@@ -629,7 +634,7 @@ export function buildPlate(keyList, options) {
   let maxY = new Decimal(Number.NEGATIVE_INFINITY)
 
   // 检查是否有任何花纹选项开启（用于PCB美化）
-  const hasPattern = options.switchPattern || options.stabilizerPattern || options.acousticPattern || options.platePattern || options.slotPattern
+  // const hasPattern = options.switchPattern || options.stabilizerPattern || options.acousticPattern || options.platePattern || options.slotPattern
 
   // 根据选择的卫星轴类型创建相应的生成器
   let stabilizerGen = null
